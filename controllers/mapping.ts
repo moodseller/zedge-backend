@@ -13,7 +13,8 @@ export function toSongsReply(result: itunes.ILookUpSongReply): backend.ILookUpSo
 	for (const row of result.results) {
 		outRows.push({
 			price: `${row.trackPrice} ${row.currency}`,
-			artist: row.artistName
+			artist: row.artistName,
+			trackId: row.trackId
 		});
 	}
 

@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-empty-interface */
 export namespace backend {
 	interface ILookUpSong {
+		trackId: number;
 		price: string;
 		artist: string;
 	}
@@ -22,5 +23,10 @@ export namespace backend {
 	}
 	interface IFavoriteRouteRequestReply {
 		status: string;
+	}
+
+	interface IGetFavoriteTracksRequest { }
+	interface IGetFavoriteTracksReply {
+		rows: ILookUpSong[];
 	}
 }

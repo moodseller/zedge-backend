@@ -14,7 +14,7 @@ export class ClientService {
 		return async (req: TypedRequest<{}, {}>, res: Response, next: NextFunction) => {
 			try {
 				const userIdentifier: string = req.header['Authorization'];
-				console.log(userIdentifier);
+				console.log(req.headers);
 
 				if (!userIdentifier) {
 					throw 'No token';

@@ -10,7 +10,6 @@ export class SearchRoutes implements AppRoute {
 	initRoute(): Router {
 		const routePrefix = '/itunes';
 		const router = express.Router();
-
 		
 		router.use(ClientService.token());
 
