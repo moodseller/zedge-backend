@@ -1,0 +1,9 @@
+http:
+  port: 3021
+  host: localhost
+log:
+  level: debug
+  path: /dev/null
+  stream: short
+itunes:
+  apiUrl: https://itunes.apple.com

@@ -1,0 +1,54 @@
+import express, { Router } from 'express';
+import config from 'config';
+import { SettingsService } from './services/settingsService';
+import { LoggerService } from './services/loggerService';
+import bodyParser from 'body-parser';
+import { SearchController } from './controllers/SearchController';
+import { ITunesService } from './services/itunesService';
+import { AppRoute } from './routes/route';
+import { SearchRoutes } from './routes/SearchRoutes';
+
+class MainApplication {
+	app: express.Application;
+	router: Router = express.Router();
+	
+	constructor(
+		private readonly _settingsService: SettingsService,
+		private readonly _loggerService: LoggerService,
+		private readonly _routes: AppRoute[]
+	) {
+		this.app = express();
+		this.app.use(bodyParser.json());
+		this.app.use(bodyParser.urlencoded({ extended: false }));
+		this.app.use('/ping', (req, res) => res.status(200).end('pong'));
+
+		for (const route of this._routes) {
+			this.app.use(route.initRoute());
+		}
+
+		if (!this._settingsService.isTestEnvironment) { // Prevent server from starting on test env.
+			this.app.listen(config.get('http.port'), () => {
+				this._loggerService.info({ port: config.get('http.port') }, 'server started');
+			});
+		}
+	}
+}
+
+const settingsService = new SettingsService();
+const loggerService = new LoggerService('app');
+const itunesService = new ITunesService();
+
+const searchController = new SearchController(itunesService);
+
+const routeMap: AppRoute[] = [
+	new SearchRoutes(searchController)
+]
+if (!settingsService.isTestEnvironment) {
+	new MainApplication(
+		settingsService,
+		loggerService,
+		routeMap
+	);
+}
+
+export default MainApplication;
