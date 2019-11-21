@@ -13,20 +13,17 @@ export class ClientService {
 	static token(): (req: TypedRequest<{}, {}>, res: Response, next: NextFunction) => Promise<void | Response> {
 		return async (req: TypedRequest<{}, {}>, res: Response, next: NextFunction) => {
 			try {
-				const userIdentifier: string = req.header['Authorization'];
-				console.log(req.headers);
-
+				const userIdentifier = req.headers.authorization;
 				if (!userIdentifier) {
 					throw 'No token';
 				}
 
 				const client = new ClientModel({ userIdentifier });
-				if (this.clients.find((c) => c.userId === userIdentifier)) {
-					req.currentUser = client;
-					return next();
+				req.currentUser = client;
+				if (!this.clients.find((c) => c.userId === userIdentifier)) {
+					this.clients.push(client);
 				}
 
-				this.clients.push(client);
 				return next();
 			} catch {
 				return res.status(500).json({ message: 'Token middleware failed '});

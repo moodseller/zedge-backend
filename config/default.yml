@@ -7,3 +7,6 @@ log:
   stream: short
 itunes:
   apiUrl: https://itunes.apple.com
+cors:
+  origin: http://localhost:3020
+

@@ -7,6 +7,7 @@ import { SearchController } from './controllers/SearchController';
 import { ITunesService } from './services/itunesService';
 import { AppRoute } from './routes/route';
 import { SearchRoutes } from './routes/SearchRoutes';
+import cors from 'cors';
 
 class MainApplication {
 	app: express.Application;
@@ -20,6 +21,17 @@ class MainApplication {
 		this.app = express();
 		this.app.use(bodyParser.json());
 		this.app.use(bodyParser.urlencoded({ extended: false }));
+
+		this.app.use(
+			cors({
+				methods: 'GET,PUT,POST,OPTIONS,HEAD,DELETE,PATCH',
+				// eslint-disable-next-line max-len
+				allowedHeaders: 'Access-Control-Allow-Origin,Credentials,Authorization,Origin,X-Requested-With,Content-Type,Content-Range,Content-Disposition,Content-Description',
+				credentials: true,
+				origin: config.get('cors.origin')
+			})
+		);
+
 		this.app.use('/ping', (req, res) => res.status(200).end('pong'));
 
 		for (const route of this._routes) {
@@ -42,7 +54,7 @@ const searchController = new SearchController(itunesService);
 
 const routeMap: AppRoute[] = [
 	new SearchRoutes(searchController)
-]
+];
 if (!settingsService.isTestEnvironment) {
 	new MainApplication(
 		settingsService,
