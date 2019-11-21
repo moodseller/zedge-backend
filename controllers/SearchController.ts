@@ -21,6 +21,10 @@ export class SearchController {
 		req: TypedRequest<backend.IFavoriteRouteRequestBody, {}>,
 		res: TypedResponse<backend.IFavoriteRouteRequestReply>
 	) => {
+		if (!req.body.trackId || typeof req.body.trackId !== 'number') {
+			throw new HTTPError('Invalid request body', 400);
+		}
+		
 		const response = await this._itunesService.lookUpSong(req.body.trackId);
 		if (!response.resultCount || !response.results.length || !response.results[0]) {
 			throw new HTTPError('Track not found!', 400);
