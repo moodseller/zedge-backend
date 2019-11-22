@@ -4,6 +4,7 @@ export namespace backend {
 		trackId: number;
 		price: string;
 		artist: string;
+		trackName: string;
 	}
 	interface ILookUpSongRequestBody {
 		id: number;

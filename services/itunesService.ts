@@ -6,7 +6,7 @@ export class ITunesService {
 	private readonly _itunesURL: string = config.get('itunes.apiUrl');
 
 	async lookUpSong(id: number): Promise<itunes.ILookUpSongReply> {
-		const r = await axios.get(`${this._itunesURL}/lookup?id=${id}`);
+		const r = await axios.get(`${this._itunesURL}/lookup?id=${id}&entity=song`);
 		return r.data;
 	}
 

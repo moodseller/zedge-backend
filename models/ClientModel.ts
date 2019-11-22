@@ -4,6 +4,7 @@ interface ClientModelConstructor {
 
 interface FavoriteSong {
 	trackId: number;
+	trackName: string;
 	price: string;
 	artist: string;
 }

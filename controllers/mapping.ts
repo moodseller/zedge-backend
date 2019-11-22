@@ -14,7 +14,8 @@ export function toSongsReply(result: itunes.ILookUpSongReply): backend.ILookUpSo
 		outRows.push({
 			price: `${row.trackPrice} ${row.currency}`,
 			artist: row.artistName,
-			trackId: row.trackId
+			trackId: row.trackId,
+			trackName: row.trackName
 		});
 	}
 

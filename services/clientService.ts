@@ -20,8 +20,11 @@ export class ClientService {
 
 				const client = new ClientModel({ userIdentifier });
 				req.currentUser = client;
-				if (!this.clients.find((c) => c.userId === userIdentifier)) {
+				const clientExists = this.clients.find((c) => c.userId === userIdentifier);
+				if (!clientExists) {
 					this.clients.push(client);
+				} else {
+					req.currentUser = clientExists;
 				}
 
 				return next();
@@ -44,13 +47,14 @@ export class ClientService {
 
 		const client = this.clients[clientIdx];
 		const trackIdx = client.favoriteSongList.findIndex((t) => t.trackId === track.trackId);
-		if (trackIdx === -1) {
+		if (trackIdx !== -1) {
 			client.favoriteSongList.splice(trackIdx, 1);
 			return false;
 		}
 		
 		client.favoriteSongList.push({
 			trackId: track.trackId,
+			trackName: track.trackName,
 			artist: track.artistName,
 			price: `${track.trackPrice} ${track.currency}`
 		});

@@ -24,7 +24,7 @@ export class SearchController {
 		if (!req.body.trackId || typeof req.body.trackId !== 'number') {
 			throw new HTTPError('Invalid request body', 400);
 		}
-		
+
 		const response = await this._itunesService.lookUpSong(req.body.trackId);
 		if (!response.resultCount || !response.results.length || !response.results[0]) {
 			throw new HTTPError('Track not found!', 400);
@@ -42,7 +42,7 @@ export class SearchController {
 		req: TypedRequest<backend.ILookUpSongRequestBody, {}>,
 		res: TypedResponse<backend.ISearchSongRequestReply>
 	) => {
-		if (!req.body.id || typeof req.body.id !== 'string') {
+		if (!req.body.id || typeof req.body.id !== 'number') {
 			throw new HTTPError('Invalid request body', 400);
 		}
 
