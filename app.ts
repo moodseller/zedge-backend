@@ -19,6 +19,9 @@ class MainApplication {
 		private readonly _routes: AppRoute[]
 	) {
 		this.app = express();
+	}
+
+	init() {
 		this.app.use(bodyParser.json());
 		this.app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -52,7 +55,7 @@ const itunesService = new ITunesService();
 
 const searchController = new SearchController(itunesService);
 
-const routeMap: AppRoute[] = [
+export const routeMap: AppRoute[] = [
 	new SearchRoutes(searchController)
 ];
 if (!settingsService.isTestEnvironment) {
@@ -60,7 +63,7 @@ if (!settingsService.isTestEnvironment) {
 		settingsService,
 		loggerService,
 		routeMap
-	);
+	).init();
 }
 
 export default MainApplication;
