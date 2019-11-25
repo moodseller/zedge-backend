@@ -10,19 +10,19 @@ interface MockMainApplicationOptions {
 }
 
 const defaultOptions: MockMainApplicationOptions = {
-	loggerService: {},
-	settingsService: {
-		isTestEnvironment: jest.fn().mockReturnValue(true)
-	},
-	routes: routeMap
+    loggerService: {},
+    settingsService: {
+        isTestEnvironment: jest.fn().mockReturnValue(true)
+    },
+    routes: routeMap
 };
 
 export const MockMainApplication = (options: MockMainApplicationOptions = defaultOptions) => {
-	return new MainApplication(
+    return new MainApplication(
 		options.settingsService as any || defaultOptions.settingsService,
 		options.loggerService as any || defaultOptions.loggerService,
 		options.routes as any || defaultOptions.routes
-	);
+    );
 };
 
 

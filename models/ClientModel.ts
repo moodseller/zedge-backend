@@ -14,10 +14,10 @@ export class ClientModel {
 	favoriteSongList: FavoriteSong[] = [];
 
 	constructor(c: ClientModelConstructor) {
-		if (!c) {
-			return;
-		}
+	    if (!c) {
+	        return;
+	    }
 
-		this.userId = c.userIdentifier;
+	    this.userId = c.userIdentifier;
 	}
 }

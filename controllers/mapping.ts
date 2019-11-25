@@ -8,21 +8,21 @@ import { backend } from '../services/zedge';
  * @returns Formatted song list reply for front-end
  */
 export function toSongsReply(result: itunes.ILookUpSongReply): backend.ILookUpSongReply {
-	const outRows: backend.ILookUpSong[] = [];
+    const outRows: backend.ILookUpSong[] = [];
 
-	for (const row of result.results) {
-		outRows.push({
-			price: `${row.trackPrice} ${row.currency}`,
-			artist: row.artistName,
-			trackId: row.trackId,
-			trackName: row.trackName
-		});
-	}
+    for (const row of result.results) {
+        outRows.push({
+            price: `${row.trackPrice} ${row.currency}`,
+            artist: row.artistName,
+            trackId: row.trackId,
+            trackName: row.trackName
+        });
+    }
 
-	return {
-		count: result.resultCount,
-		rows: outRows
-	};
+    return {
+        count: result.resultCount,
+        rows: outRows
+    };
 }
 
 

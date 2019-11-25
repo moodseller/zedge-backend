@@ -34,7 +34,7 @@
 	  "@typescript-eslint/prefer-namespace-keyword": "error",
 	  "@typescript-eslint/unified-signatures": "error",
   
-	  "indent": ["error", "tab", { "SwitchCase": 1 }],
+	  "indent": ["error", 4, { "SwitchCase": 1 }],
 		"no-console": "warn",
 		"no-return-await": "error",
 		"jsx-quotes": ["error", "prefer-single"],

@@ -12,27 +12,27 @@ export class LoggerService {
 	private _logger: bunyan;
 
 	constructor(loggerName: string) {
-		const configStream: ConfigStreamOptions = { ...config.get('log') };
-		if (configStream.stream === 'process.stdout') {
-			configStream.stream = process.stdout;
-		} else {
-			configStream.stream = new bformat({ outputMode: configStream.stream } as Options);
-		}
-		this._logger = bunyan.createLogger({
-			name: loggerName,
-			stream: configStream.stream,
-		});
+	    const configStream: ConfigStreamOptions = { ...config.get('log') };
+	    if (configStream.stream === 'process.stdout') {
+	        configStream.stream = process.stdout;
+	    } else {
+	        configStream.stream = new bformat({ outputMode: configStream.stream } as Options);
+	    }
+	    this._logger = bunyan.createLogger({
+	        name: loggerName,
+	        stream: configStream.stream,
+	    });
 	}
 
 	error(format: any | object, ...params: any[]) {
-		this._logger.error(format, params);
+	    this._logger.error(format, params);
 	}
 
 	warn(format: any| object, ...params: any[]) {
-		this._logger.warn(format, params);
+	    this._logger.warn(format, params);
 	}
 
 	info(format: any| object, ...params: any[]) {
-		this._logger.info(format, params);
+	    this._logger.info(format, params);
 	}
 }
