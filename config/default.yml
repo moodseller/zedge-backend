@@ -1,6 +1,5 @@
 http:
   port: 3021
-  host: localhost
 log:
   level: debug
   path: /dev/null

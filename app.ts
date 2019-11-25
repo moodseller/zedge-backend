@@ -8,6 +8,8 @@ import { ITunesService } from './services/itunesService';
 import { AppRoute } from './routes/route';
 import { SearchRoutes } from './routes/SearchRoutes';
 import cors from 'cors';
+import helmet from 'helmet';
+import compression from 'compression';
 
 class MainApplication {
 	app: express.Application;
@@ -22,8 +24,19 @@ class MainApplication {
 	}
 
 	init() {
+	    this.app.use(compression());
+	    this.app.use(helmet());
+	    this.app.use(helmet.frameguard({ action: 'deny' }));
 	    this.app.use(bodyParser.json());
 	    this.app.use(bodyParser.urlencoded({ extended: false }));
+	    this.app.use((req, res, next) => {
+	        try {
+	            decodeURIComponent(req.path);
+	            return next();
+	        } catch (err) {
+	            return res.status(404).send();
+	        }
+	    });
 
 	    this.app.use(
 	        cors({
