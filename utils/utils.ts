@@ -3,7 +3,7 @@ import { TypedRequest, TypedResponse } from './typed';
 
 /**
  * Function which merges a route's base url with its destination
- * Usually this is needed when versioning the API
+ * Usually this is needed when versioning the API, but in this case just to give unique paths for each route file
  * 
  * @param {string} prefix - base url 
  * @param {string} routeName - destination route name
